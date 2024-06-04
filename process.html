@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sip</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/first.css">
+</head>
+<body>
+    <div id="loading">
+        <div id="spinner"></div>
+    </div>
+    <div id="magnify">
+        <h1 onclick="closemagnify()"><i class="fas fa-times"></i></h1>
+        <div id="img_here"></div>
+    </div>
+    <header id="header" class="animated slideInDown" style="animation-delay:1.8s;">
+        <table>
+            <tr>
+                <td><a href="#home" style="text-decoration: none;" id="logo"></a></td>
+                <!-- <td><h2 id="logo">Hallo</h2></td> -->
+                <td id="navigation">
+                    <a href="#input" style="border-bottom: #4b4dee;">Input barang</a>
+                    <a href="#cekBarang">Cek barang</a>
+                    <a href="index.html">Keluar</a>
+                </td>
+            </tr>
+        </table>
+    </header>
+    <table id="top_part">
+        <tr>
+            <td id="home" class="animated slideInLeft" style="animation-delay:2s;">
+                <h1>Di mana ada kelebihan di situ ada kembalian</h1>
+                <p style="margin: 0px;padding: 0px;color: red;">*kemarin di warung makan</p>
+            </td>
+            <td id="rightImage" class="animated jackInTheBox" style="animation-delay:2.2s;"></td>
+        </tr>
+    </table>
+    <div id="input">
+        <h1 style="padding-top: 100px;">Input barang</h1>
+        <div>
+            <p>Masukkan gambar : </p>
+            <input id="fileTruth" type="file" accept="image/png, image/gif, image/jpeg, image/jpg"/>
+        </div>
+        <div>
+            <p>Masukkan deskripsi gambar : </p>
+            <textarea placeholder="Masukkan deskripsi gambar" rows="5" cols="70" id="plaintext" id="text"></textarea>
+            <br>
+            <label for="" style="font-size: 12px;"> Masukkan kunci angka : 
+                <input type="number" min="0" id="keyCaesar">
+            </label>
+            <br>
+            <label for="" style="font-size: 12px;"> Masukkan kunci huruf : 
+                <input type="text" onkeydown="return /[a-zA-Z]/i.test(event.key)" id="keyVignere">
+            </label>
+            <br>
+            <button type="button" class="btn-encrypt" id="makeSecret">Tambahkan</button>
+            <div style="margin-top: 10px;">
+                <table style="width: 100%;">
+                    <tr style="text-align: left;">
+                        <th>Plain image</th>
+                        <th>Chiper image</th>
+                    </tr>
+                    <tr>
+                        <td><img src="assets/img/sample.jpeg" alt="" style="width: 80%;" id="img"></td>
+                        <td>
+                            <img src="assets/img/sample.jpeg" alt="" style="width: 80%;" id="cover">
+                        </td>
+                    </tr>
+                </table>
+                <button><a id="download" download="enkripsiGambar.png" rel="nofollow" href="assets/img/back4.jpg" style="text-decoration: none;">Download Hasil Enkripsi</a></button>
+            </div>
+        </div>
+    </div>
+    <div id="cekBarang">
+        <h1 style="padding-top: 100px;">Cek barang</h1>
+        <p>Masukkan gambar enkripsi : </p>
+        <input id="fileSecret" type="file" accept="image/png, image/gif, image/jpeg, image/jpg"/>
+        <br>
+        <p>Gambar inputan</p>
+        <img src="assets/img/sample.jpeg" alt="" style="width: 50%;" id="imgEncyrpt">
+        <br>
+        <button type="button" id="check">Lihat Pesan</button>
+        <p>Pesan gambar rahasia : </p>
+        <!-- <p id ="ciphertext"></p> -->
+        <textarea placeholder="Pesan pada gambar" rows="5" cols="70" id="ciphertext"></textarea>
+        <br>
+        <label for="" style="font-size: 12px;"> Masukkan kunci angka : 
+            <input type="number" min="0" id="keyCa">
+        </label>
+        <br>
+        <label for="" style="font-size: 12px;"> Masukkan kunci huruf : 
+            <input type="text" id="keyVe" onkeydown="return /[a-zA-Z]/i.test(event.key)">
+        </label>
+        <br>
+        <button type="button" id="makeTruth">Dekripsi Pesan</button>
+        <p>Isi pesan rahasia : </p>
+        <textarea placeholder="Pesan hasil dekripsi" rows="5" cols="70" id="resultSecret"></textarea>
+    </div>
+    <div id="footer">
+        <!-- made on earth by a human <br> <a href="https://imfunniee.github.io">imfunniee</a> -->
+    </div>
+    <script src="assets/js/look.js" type="text/javascript"></script>
+    <script src="assets/js/process.js" type="text/javascript"></script>
+    <script src="assets/js/toImage.js" type="text/javascript"></script>
+</body>
+</html>

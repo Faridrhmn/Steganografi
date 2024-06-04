@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login dulu xixi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/login.css">
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="form-container">
+            <div class="form-body">
+                <h2 class="title">Silakan Masuk :)</h2>
+                <div class="the-form">
+                    <label for="text">Username</label>
+                    <input type="text" name="Username" id="Username" placeholder="Masukkan Username">
+
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="Password" placeholder="Masukkan Password">
+
+                    <input type="button" id="submit" value="Masuk">
+                </div>
+                <br>
+                <center>
+                    <span style="color: #4b4dee; font-weight: bold;">Belum punya akun?</span> <a href="register.html" style="font-weight: bold; color: rgb(143, 69, 19);">Daftar</a>
+                </center>
+            </div>
+
+            <div class="form-footer">
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+    <!-- PROSES PUSH DATABASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBCuHUtOllOVOSlAkITd3WtWG1IxfRvAR0",
+          authDomain: "krip-xixi.firebaseapp.com",
+          databaseURL: "https://krip-xixi-default-rtdb.firebaseio.com",
+          projectId: "krip-xixi",
+          storageBucket: "krip-xixi.appspot.com",
+          messagingSenderId: "770478733676",
+          appId: "1:770478733676:web:2e396a7daac61f99a99b49"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        
+        import {getDatabase, ref, set, get, child, update, remove} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+        const db = getDatabase();
+
+        document.querySelector("#submit").addEventListener("click", () => {
+            const dbref = ref(db);
+            const username = document.getElementById('Username');
+            const password = document.getElementById('Password');
+
+            if(username.value == "" || password.value == ""){
+                window.location.href = "index.html";
+                alert("username atau password tidak boleh kosong!");
+            }
+            else {
+                get(child(dbref, "users/" + username.value))
+                .then((snapshot)=>{
+                    if(snapshot.exists()){
+                        console.log(snapshot.val().Username);
+                        console.log(snapshot.val().Password);
+                        var decrypted = CryptoJS.AES.decrypt(snapshot.val().Username, "Secret Passphrase");
+                        localStorage.setItem("passUsername", decrypted.toString(CryptoJS.enc.Utf8));
+                        alert("akun ditemukan atas nama : " + decrypted.toString(CryptoJS.enc.Utf8))
+                        window.location.href = "process.html";
+                    }
+                    else{
+                        alert("Akun tidak ditemukan!");
+                        window.location.href = "index.html";
+                    }
+                })
+                .catch((error)=>{
+                    alert("Jenis error " + error);
+                    window.location.href = "index.html";
+                })
+            }
+        });
+      </script>
+
+</body>
+</html>
